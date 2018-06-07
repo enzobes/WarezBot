@@ -18,4 +18,4 @@ RUN python3 -m pip install -U discord.py
 RUN python3 -m pip install requests
 RUN python3 -m pip install datetime
 CMD cd WarezBot \
-  && python3 WarezBot.py &
+  && python3 WarezBot.py -k LAYER13_API &
