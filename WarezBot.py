@@ -96,7 +96,7 @@ def on_message(message):
             date = data['pretime']
         except KeyError:
             list_nfo = params[1].split("-")
-            yield from client.send_message(message.channel, "**"+list_nfo[1]+"**" + " n'est pas une release scène !")
+            yield from client.send_message(message.channel, "**"+list_nfo[1]+"**" + " n'est pas une team scène !")
             return
         
         read_date = datetime.datetime.fromtimestamp(int(date)).strftime('%d-%m-%Y %H:%M:%S')
@@ -114,7 +114,7 @@ def on_message(message):
             url = 'https://layer13.net/rls?id='+ data2['id']
         except KeyError:
             list_nfo = params[1].split("-")
-            yield from client.send_message(message.channel, "**"+list_nfo[1]+"**" + " n'est pas une release scène !")
+            yield from client.send_message(message.channel, "**"+list_nfo[1]+"**" + " n'est pas une team scène !")
             return
         
         try:
@@ -144,7 +144,7 @@ def on_message(message):
 
         except KeyError:
             list_nfo = params[1].split("-")
-            yield from client.send_message(message.channel, "**"+list_nfo[1]+"**" + " n'est pas une release scène !")
+            yield from client.send_message(message.channel, "**"+list_nfo[1]+"**" + " n'est pas une team scène !")
             return
         try:    
             parsedValue = data['0']['filename']
@@ -160,7 +160,7 @@ def on_message(message):
             r2=requests.get(url='http://api.layer13.net/v1/?getfilessize='+ data['id'] +'&key='+ apikey_layer13)
         except KeyError:
             list_nfo = params[1].split("-")
-            yield from client.send_message(message.channel, "**"+list_nfo[1]+"**" + " n'est pas une release scène !")
+            yield from client.send_message(message.channel, "**"+list_nfo[1]+"**" + " n'est pas une team scène !")
             return
         
         data2=r2.json()
