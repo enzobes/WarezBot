@@ -92,7 +92,13 @@ def on_message(message):
     if command == "!pre":
         r=requests.get(url='http://api.layer13.net/v1/?getpre='+ params[1] +'&key='+ apikey_layer13)
         data=r.json()
-        date = data['pretime']
+        try:
+            date = data['pretime']
+        except KeyError:
+            list_nfo = params[1].split("-")
+            yield from client.send_message(message.channel, "**"+list_nfo[1]+"**" + " n'est pas une release scène !")
+            return
+        
         read_date = datetime.datetime.fromtimestamp(int(date)).strftime('%d-%m-%Y %H:%M:%S')
         yield from client.send_message(message.channel, "**ID:** " + data['id'] + "\n**Section:** "+ data['section']+ "\n**RlsName:** " + data['rlsname'] + "\n**Pretime:** " + data['pretime'] + "\n**Predate:**: " + read_date)
         
@@ -104,7 +110,13 @@ def on_message(message):
 
         data=r.json()
         data2=r2.json()
-        url = 'https://layer13.net/rls?id='+ data2['id']
+        try:
+            url = 'https://layer13.net/rls?id='+ data2['id']
+        except KeyError:
+            list_nfo = params[1].split("-")
+            yield from client.send_message(message.channel, "**"+list_nfo[1]+"**" + " n'est pas une release scène !")
+            return
+        
         try:
             parsed_nfo = data['0']['filename']
             parsed_sfv = data['1']['filename']
@@ -125,9 +137,15 @@ def on_message(message):
         r2=requests.get(url='http://api.layer13.net/v1/?getpre='+ params[1] +'&key='+ apikey_layer13)
         data=r.json()
         data2=r2.json()
-        parsed_nfo = data['0']['filename']
-        download='http://api.layer13.net/v1/?getfile=' + data2['id'] + "&filename=" + parsed_nfo + "&key=" + apikey_layer13
+        try:
+            parsed_nfo = data['0']['filename']
+            download='http://api.layer13.net/v1/?getfile=' + data2['id'] + "&filename=" + parsed_nfo + "&key=" + apikey_layer13
 
+
+        except KeyError:
+            list_nfo = params[1].split("-")
+            yield from client.send_message(message.channel, "**"+list_nfo[1]+"**" + " n'est pas une release scène !")
+            return
         try:    
             parsedValue = data['0']['filename']
             yield from client.send_message(message.channel, "NFO trouvé !" + "\n**Files:** " + parsedValue + "\n**Download**: " + download)
@@ -138,7 +156,13 @@ def on_message(message):
     if command == "!size":
         r=requests.get(url='http://api.layer13.net/v1/?getpre='+ params[1] +'&key='+ apikey_layer13)
         data=r.json()
-        r2=requests.get(url='http://api.layer13.net/v1/?getfilessize='+ data['id'] +'&key='+ apikey_layer13)
+        try:
+            r2=requests.get(url='http://api.layer13.net/v1/?getfilessize='+ data['id'] +'&key='+ apikey_layer13)
+        except KeyError:
+            list_nfo = params[1].split("-")
+            yield from client.send_message(message.channel, "**"+list_nfo[1]+"**" + " n'est pas une release scène !")
+            return
+        
         data2=r2.json()
         yield from client.send_message(message.channel, "**Files:** " + data2['files'] + "\n**Size:** "+ data2['size']+ " MB")
 
