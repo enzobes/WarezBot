@@ -3,16 +3,27 @@
 import asyncio, discord
 import requests
 import datetime
+import sys
+import argparse
+
 token = "NDUzNzA2NTU1OTY0MTI5Mjkw.DfiywA.CfbdBwU60dLRBB9UnaTiBbdA0-k" #Mettez dans cette variable le token du bot
 trust = ["Utilisateur 1", "Utilisateur 2"] #Mettez dans cette variable les utilisateurs pouvant utiliser les commandes restreintes
 trust_roles = [""]
 ranks = False
-apikey_layer13 = "YOUR LAYER13 API KEY"
+#apikey_layer13 = sys.argv[1]
 client = discord.Client()
 ver = "0.1"
 lang = "fr"
 
+
+ap = argparse.ArgumentParser()
+ap.add_argument("-k", "--key", required=True, help="Layer13 API KEY")
+args = vars(ap.parse_args())
+
+apikey_layer13 = args["key"]
+
 print("WarezBot " + ver + " " + lang)
+
 
 @client.event
 @asyncio.coroutine
