@@ -8,4 +8,4 @@ RUN pip install discord.py requests datetime
 
 WORKDIR /app
 
-CMD ["python3", "WarezBot.py", "-k", "$LAYER13_API"]
+CMD python3 WarezBot.py -k $LAYER13_API
