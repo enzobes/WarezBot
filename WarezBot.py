@@ -6,7 +6,16 @@ import datetime
 import sys
 import argparse
 
-token = "YOUR BOT TOKEN"
+
+
+ap = argparse.ArgumentParser()
+ap.add_argument("-k", "--key", required=True, help="Layer13 API KEY")
+ap.add_argument("-b", "--bot", required=True, help="Discord Bot Token")
+args = vars(ap.parse_args())
+token = args["bot"]
+apikey_layer13 = args["key"]
+print(token)
+
 trust = ["Utilisateur 1", "Utilisateur 2"] #Trusted users for restricted commands 
 trust_roles = [""]
 ranks = False
@@ -15,11 +24,6 @@ ver = "0.1"
 lang = "fr"
 
 
-ap = argparse.ArgumentParser()
-ap.add_argument("-k", "--key", required=True, help="Layer13 API KEY")
-args = vars(ap.parse_args())
-
-apikey_layer13 = args["key"]
 
 print("WarezBot " + ver + " " + lang)
 
