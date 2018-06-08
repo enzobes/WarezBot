@@ -6,7 +6,7 @@ import datetime
 import sys
 import argparse
 
-token = "NDUzNzA2NTU1OTY0MTI5Mjkw.DfiywA.CfbdBwU60dLRBB9UnaTiBbdA0-k" #Bot Token
+token = "YOUR BOT TOKEN"
 trust = ["Utilisateur 1", "Utilisateur 2"] #Trusted users for restricted commands 
 trust_roles = [""]
 ranks = False
