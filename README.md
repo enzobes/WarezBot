@@ -24,16 +24,21 @@ Soon ...
 
 * Read the [Installation Guides](http://link.me) for instructions to install Tautulli.
 
-* You can add me on [Discord](https://discord.gg/), or post in [Issues] section(https://github.com/enzobes/WarezBot/issues), if you have installations problems
+* You can add me on [Discord](https://discord.gg/), or post in [Issues](https://github.com/enzobes/WarezBot/issues) section, if you have installations problems
 
 
 ## Commands
 `!pre` : return ID, Section, Name, Pretime and Predate
+
 `!file` : return layer13 link, NFO, SFV (soon JPG)
-`!nfo` : search for NFO and of exist, return the layer13 download link
+
+`!nfo` : search for NFO and if exist, return the layer13 download link
+
 `!size` : return number of file and the size of the release 
 
 ## Preview
 
 
 This project is based on code from [NextBot](https://skygen.me/fr/NextBot/).
+
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)[![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)[![forthebadge](https://forthebadge.com/images/badges/powered-by-netflix.svg)](https://forthebadge.com)[![forthebadge](https://forthebadge.com/images/badges/ages-18.svg)](https://forthebadge.com)[![forthebadge](https://forthebadge.com/images/badges/gluten-free.svg)](https://forthebadge.com)
