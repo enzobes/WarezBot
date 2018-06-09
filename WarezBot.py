@@ -138,16 +138,21 @@ def on_message(message):
     if command == "!nfo":
         r=requests.get(url='http://api.layer13.net/v1/?listfiles='+ params[1] +'&key='+ apikey_layer13)
         r2=requests.get(url='http://api.layer13.net/v1/?getpre='+ params[1] +'&key='+ apikey_layer13)
+        r3=requests.get(url='https://www.srrdb.com/api/nfo/' +params[1])
         data=r.json()
         data2=r2.json()
+        data3=r3.json()
         try:
+            srrdb_nfo = data3['nfo']
             parsed_nfo = data['0']['filename']
+            print(srrdb_nfo)
             download='http://api.layer13.net/v1/?getfile=' + data2['id'] + "&filename=" + parsed_nfo + "&key=" + apikey_layer13
+            yield from client.send_message(message.channel,"**NFO Srrdb: **" + str(srrdb_nfo))
 
 
         except KeyError:
-            list_nfo = params[1].split("-")
-            yield from client.send_message(message.channel, "**"+list_nfo[1]+"**" + " n'est pas une team scène !")
+
+            yield from client.send_message(message.channel, "**"+params[1]+"**" + " ne possède pas de nfo !")
             return
         try:    
             parsedValue = data['0']['filename']
@@ -169,6 +174,19 @@ def on_message(message):
         data2=r2.json()
         yield from client.send_message(message.channel, "**Files:** " + data2['files'] + "\n**Size:** "+ data2['size']+ " MB")
 
+    if command == "!group":
+        yield from client.send_message(message.channel, "I'm searching ... ")
+        r=requests.get(url='https://www.srrdb.com/api/search/group:' +params[1] + '/order:date-desc/skip:1')
+        data=r.json()
+        print(data['results'])
+        if not data['results']:
 
+            yield from client.send_message(message.channel, "**" + params[1] +"** "+ "n'est pas une team scène !")
+
+        else:
+            release = data['results'][0]['release']
+            yield from client.send_message(message.channel, "**Last release " + params[1] +": ** " + release)
+#        no_team = params[1]
+#        yield from client.send_message(message.channel, "**"+ no_team +"**" + " n'est pas une team scène !")
 
 client.run(token)
