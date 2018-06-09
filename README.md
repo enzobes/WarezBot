@@ -28,13 +28,15 @@ Soon ...
 
 
 ## Commands
-`!pre` : return ID, Section, Name, Pretime and Predate
+`!pre {RELEASE TITLE}` : return ID, Section, Name, Pretime and Predate
 
-`!file` : return layer13 link, NFO, SFV (soon JPG)
+`!file {RELEASE TITLE}` : return layer13 link, NFO, SFV (soon JPG)
 
-`!nfo` : search for NFO and if exist, return the layer13 download link
+`!nfo {RELEASE TITLE}` : search for NFO and if exist, return the layer13 download link
 
-`!size` : return number of file and the size of the release 
+`!size {RELEASE TITLE}` : return number of file and the size of the release 
+
+`!group {GROUP NAME}` : return last release of this group 
 
 ## Preview
 
