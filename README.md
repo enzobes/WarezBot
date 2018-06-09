@@ -32,7 +32,7 @@ Soon ...
 
 `!file {RELEASE TITLE}` : return layer13 link, NFO, SFV (soon JPG)
 
-`!nfo {RELEASE TITLE}` : search for NFO and if exist, return the layer13 download link
+`!nfo {RELEASE TITLE}` : search for NFO and if exist, return the download link
 
 `!size {RELEASE TITLE}` : return number of file and the size of the release 
 
