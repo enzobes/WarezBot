@@ -138,25 +138,40 @@ def on_message(message):
     if command == "!nfo":
         r=requests.get(url='http://api.layer13.net/v1/?listfiles='+ params[1] +'&key='+ apikey_layer13)
         r2=requests.get(url='http://api.layer13.net/v1/?getpre='+ params[1] +'&key='+ apikey_layer13)
-        r3=requests.get(url='https://www.srrdb.com/api/nfo/' +params[1])
+
         data=r.json()
         data2=r2.json()
-        data3=r3.json()
+
         try:
-            srrdb_nfo = data3['nfo']
+            yield from client.send_message(message.channel,"Recherche sur Layer13 ...")   
             parsed_nfo = data['0']['filename']
-            print(srrdb_nfo)
             download='http://api.layer13.net/v1/?getfile=' + data2['id'] + "&filename=" + parsed_nfo + "&key=" + apikey_layer13
-            yield from client.send_message(message.channel,"**NFO Srrdb: **" + str(srrdb_nfo))
+
 
 
         except KeyError:
 
-            yield from client.send_message(message.channel, "**"+params[1]+"**" + " ne possède pas de nfo !")
-            return
+            yield from client.send_message(message.channel, "Pas de nfo sur Layer13 pour :" +"**" + params[1] + "**")
+            try:
+                yield from client.send_message(message.channel,"Recherche sur Srrdb ...")   
+                r3=requests.get(url='https://www.srrdb.com/api/nfo/' +params[1])
+                data3=r3.json()
+                srrdb_nfo = data3['nfo']
+                srrdb_nfo_link = data3['nfolink']
+                print(srrdb_nfo_link)
+                if data3['nfo']:
+                    yield from client.send_message(message.channel,"**NFO Srrdb: **" + str(srrdb_nfo)) 
+                    yield from client.send_message(message.channel,"**Download Srrdb: **" + str(srrdb_nfo_link)) 
+                    return  
+
+                if len(srrdb_nfo) > 0:
+                    yield from client.send_message(message.channel,"Pas de nfo sur Srrdb pour:" + "**" + params[1] + "**")
+                    return   
+            except KeyError:
+                yield from client.send_message(message.channel, "Pas de NFO pour:** " + params[1] + "**")
         try:    
             parsedValue = data['0']['filename']
-            yield from client.send_message(message.channel, "NFO trouvé !" + "\n**Files:** " + parsedValue + "\n**Download**: " + download)
+            yield from client.send_message(message.channel, "NFO trouvé !" + "\n**Files:** " + parsedValue + "\n**Download Layer13**: " + download)
 
         except KeyError:
             yield from client.send_message(message.channel, "Pas de NFO pour:** " + params[1] + "**")
