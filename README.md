@@ -24,7 +24,7 @@ Soon ...
 
 * Read the [Installation Guides](https://github.com/enzobes/WarezBot/wiki) for instructions to install Tautulli.
 
-* You can add me on [Discord](https://discord.gg/), or post in [Issues](https://github.com/enzobes/WarezBot/issues) section, if you have installations problems
+* You can post in [Issues](https://github.com/enzobes/WarezBot/issues) section, if you have installations problems
 
 
 ## Commands
