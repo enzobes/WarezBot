@@ -191,17 +191,21 @@ def on_message(message):
 
     if command == "!group":
         yield from client.send_message(message.channel, "I'm searching ... ")
-        r=requests.get(url='https://www.srrdb.com/api/search/group:' +params[1] + '/order:date-desc/skip:1')
+        r=requests.get(url='https://www.srrdb.com/api/search/group:' +params[1] + '/order:date-desc/skip:5')
         data=r.json()
-        print(data['results'])
+
         if not data['results']:
 
             yield from client.send_message(message.channel, "**" + params[1] +"** "+ "n'est pas une team scène !")
 
         else:
-            release = data['results'][0]['release']
-            yield from client.send_message(message.channel, "**Last release " + params[1] +": ** " + release)
+            yield from client.send_message(message.channel, "**Last 5 releases of " + params[1] +": **\n ")
+            for i in data['results']:
+
+                release = i['release']
+                yield from client.send_message(message.channel, release)
 #        no_team = params[1]
 #        yield from client.send_message(message.channel, "**"+ no_team +"**" + " n'est pas une team scène !")
+    
 
 client.run(token)
