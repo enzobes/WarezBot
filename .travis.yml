@@ -3,8 +3,7 @@ python:
   - "3.4"
 install:
   - sudo -H apt-get install python3-pip
-  - pip3 install requests
-  - pip3 install git+https://github.com/Rapptz/discord.py@async
+  - pip3 install -r requirements.txt
 
 # command to run tests
 script:

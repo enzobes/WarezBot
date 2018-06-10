@@ -5,7 +5,7 @@ ADD . /app
 ENV LAYER13_API YourApiKey
 ENV TOKEN_BOT YourTokenBot
 
-RUN pip install discord.py requests datetime
+RUN pip install -r requirements.txt
 
 WORKDIR /app
 
