@@ -133,7 +133,7 @@ def on_message(message):
                     yield from client.send_message(message.channel, "**Lien Layer13:** " + url +"\n**NFO:** " + parsed_nfo)
                         
             except KeyError:
-                yield from client.send_message(message.channel, "Pas de NFO pour:** " + params[1] + "**")
+                yield from client.send_message(message.channel, "Pas de fichier sur Layer13 pour:** " + params[1] + "**")
     
     if command == "!nfo":
         r=requests.get(url='http://api.layer13.net/v1/?listfiles='+ params[1] +'&key='+ apikey_layer13)
@@ -203,9 +203,23 @@ def on_message(message):
             for i in data['results']:
 
                 release = i['release']
-                yield from client.send_message(message.channel, release)
+                yield from client.send_message(message.channel, "```" + release + "```")
 #        no_team = params[1]
 #        yield from client.send_message(message.channel, "**"+ no_team +"**" + " n'est pas une team scène !")
     
+    if command == "!imdb":
+        yield from client.send_message(message.channel, "Retrieve information from IMDB ... ")
+        r=requests.get(url='https://www.srrdb.com/api/imdb/' + params[1])
+        data=r.json()
+        
+        try:
+
+            imdb_id = data['releases'][0]['imdb']
+            imdb_title = data['releases'][0]['title']
+            imdb_rating = data['releases'][0]['rating']
+            imdb_votes = data['releases'][0]['votes']
+            yield from client.send_message(message.channel,"**IMDB ID:**" + imdb_id + "\n**Title: **" + imdb_title + "\n**Rating: **" + imdb_rating + "\n**Votes: **" + imdb_votes )
+        except KeyError:
+            yield from client.send_message(message.channel, "Pas d'information pour:** " + params[1] + "**")
 
 client.run(token)
