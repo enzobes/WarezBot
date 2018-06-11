@@ -36,7 +36,7 @@ Soon ...
 
 `!size {RELEASE TITLE}` : return number of file and the size of the release 
 
-`!group {GROUP NAME}` : return last release of this group 
+`!group {GROUP NAME}` : return last 5 releases of this group 
 
 ## Preview
 
