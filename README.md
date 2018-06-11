@@ -38,6 +38,9 @@ Soon ...
 
 `!group {GROUP NAME}` : return last 5 releases of this group 
 
+`!imdb {RELEASE TITLE}` : retrieve information from imdb
+
+
 ## Preview
 
 
