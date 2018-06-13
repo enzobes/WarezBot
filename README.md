@@ -1,8 +1,10 @@
-# WarezBot [![Docker Build Status](https://img.shields.io/docker/build/enzobes/warezbot.svg)](https://hub.docker.com/r/enzobes/warezbot) [![Docker pulls](https://img.shields.io/docker/pulls/enzobes/warezbot.svg)](https://hub.docker.com/r/enzobes/warezbot/) [![Docker Stars](https://img.shields.io/docker/stars/enzobes/warezbot.svg)](https://hub.docker.com/r/enzobes/warezbot) [![Docker Automated build](https://img.shields.io/docker/automated/enzobes/warezbot.svg)](https://hub.docker.com/r/enzobes/warezbot)
+# WarezBot [![Build Status](https://travis-ci.org/enzobes/WarezBot.svg?branch=master)](https://travis-ci.org/enzobes/WarezBot) [![Github All Releases](https://img.shields.io/github/downloads/enzobes/WarezBot/total.svg)](https://github.com/enzobes/WarezBot/releases) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/enzobes/WarezBot/issues)
 
-[![Build Status](https://travis-ci.org/enzobes/WarezBot.svg?branch=master)](https://travis-ci.org/enzobes/WarezBot)
-[![Github All Releases](https://img.shields.io/github/downloads/enzobes/WarezBot/total.svg)](https://github.com/enzobes/WarezBot/releases)
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/enzobes/WarezBot/issues)
+[![Docker Build Status](https://img.shields.io/docker/build/enzobes/warezbot.svg)](https://hub.docker.com/r/enzobes/warezbot)
+[![Docker pulls](https://img.shields.io/docker/pulls/enzobes/warezbot.svg)](https://hub.docker.com/r/enzobes/warezbot/)
+[![Docker Stars](https://img.shields.io/docker/stars/enzobes/warezbot.svg)](https://hub.docker.com/r/enzobes/warezbot) 
+[![Docker Automated build](https://img.shields.io/docker/automated/enzobes/warezbot.svg)](https://hub.docker.com/r/enzobes/warezbot)
+
 
 A python based discord bot, to make it easier to get or send info to/from Layer13.net and Srrdb (soon) with it you can get pretime and other release info or the files for a specific release 
 
