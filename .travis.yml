@@ -9,7 +9,7 @@ install:
 # command to run tests
 script:
   - python3 WarezBot.py & # or py.test for Python versions 3.5 and below
-  - coverage run WarezBot.py
+  - coverage run WarezBot.py -k $LAYER13_API -b $TOKEN_BOT
   
 after_success:
   - codecov

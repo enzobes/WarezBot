@@ -5,6 +5,7 @@ import requests
 import datetime
 import sys
 import argparse
+import imdb
 
 
 
@@ -14,7 +15,7 @@ ap.add_argument("-b", "--bot", required=True, help="Discord Bot Token")
 args = vars(ap.parse_args())
 token = args["bot"]
 apikey_layer13 = args["key"]
-print(token)
+ia = imdb.IMDb()
 
 trust = ["Utilisateur 1", "Utilisateur 2"] #Trusted users for restricted commands 
 trust_roles = [""]
@@ -213,12 +214,13 @@ def on_message(message):
         data=r.json()
         
         try:
-
+            movie = ia.get_movie('0295297')
             imdb_id = data['releases'][0]['imdb']
             imdb_title = data['releases'][0]['title']
             imdb_rating = data['releases'][0]['rating']
             imdb_votes = data['releases'][0]['votes']
-            yield from client.send_message(message.channel,"**IMDB ID:**" + imdb_id + "\n**Title: **" + imdb_title + "\n**Rating: **" + imdb_rating + "\n**Votes: **" + imdb_votes )
+            print(ia.get_movie_infoset())
+            yield from client.send_message(message.channel,"**IMDB ID:**" + imdb_id + "\n**Title: **" + imdb_title + "\n**Rating: **" + imdb_rating + "\n**Votes: **" + imdb_votes)
         except KeyError:
             yield from client.send_message(message.channel, "Pas d'information pour:** " + params[1] + "**")
 
