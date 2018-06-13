@@ -4,7 +4,12 @@ python:
 install:
   - sudo -H apt-get install python3-pip
   - pip3 install -r requirements.txt
+  - pip3 install codecov
 
 # command to run tests
 script:
   - python3 WarezBot.py & # or py.test for Python versions 3.5 and below
+  - coverage run tests.py
+  
+after_success:
+  - codecov
