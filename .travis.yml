@@ -4,7 +4,7 @@ python:
 install:
   - sudo -H apt-get install python3-pip
   - pip3 install -r requirements.txt
-  - pip3 install codecov
+  - pip install codecov
 
 # command to run tests
 script:
