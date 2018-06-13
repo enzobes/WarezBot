@@ -9,7 +9,7 @@ install:
 # command to run tests
 script:
   - python3 WarezBot.py & # or py.test for Python versions 3.5 and below
-  - coverage run tests.py
+  - coverage run WarezBot.py
   
 after_success:
   - codecov
