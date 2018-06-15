@@ -1,10 +1,8 @@
 language: python
 python:
+  - "3.3"
   - "3.4"
+  - "3.5"
 install:
   - sudo -H apt-get install python3-pip
   - pip3 install -r requirements.txt
-
-# command to run tests
-script:
-  - python3 WarezBot.py & # or py.test for Python versions 3.5 and below
