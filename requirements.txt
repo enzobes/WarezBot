@@ -3,4 +3,3 @@ datetime>=4.2
 discord.py
 argparse
 asyncio
-IMDbPY
