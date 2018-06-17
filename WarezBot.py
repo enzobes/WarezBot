@@ -234,10 +234,11 @@ def on_message(message):
             omdb_boxoffice = data2['BoxOffice']
             omdb_type = data2['Type']
             omdb_website = data2['Website']
-            omdb_poster = data2['Poster']
             omdb_awards = data2['Awards']
+            omdb_id = data2['imdbID']
+            imdb_link = 'https://www.imdb.com/title/' + omdb_id + "/"
 
-            yield from client.send_message(message.channel, "**IMDB ID:** " + imdb_id + "\n**Title:** " + imdb_title + "\n**IMDB Rating:** " + omdb_rating + "/10" + "\n**IMDB Votes:** " + omdb_votes + "\n**Released:** " + omdb_released + "\n**DVD:**" + omdb_dvd + "\n**Runtime:** " + omdb_runtime + "\n**Genre:** " + omdb_genre + "\n**Director:** " + omdb_director + "\n**Writer:** " + omdb_writer + "\n**Actor:** " + omdb_actor + "\n**Plot:** " + omdb_plot + "\n**Language:** " + omdb_language + "\n**Country:**" + omdb_country + "\n**Awards:** " + omdb_awards + "\n**Production:** " + omdb_production + "\n**Box Office:** " + omdb_boxoffice + "\n**Type:** " + omdb_type + "\n**Website:** " + omdb_website + "\n**Poster:** " + omdb_poster)
+            yield from client.send_message(message.channel, "**Link:** " + imdb_link + "\n**Title:** " + imdb_title + "\n**IMDB Rating:** " + omdb_rating + "/10" + "\n**IMDB Votes:** " + omdb_votes + "\n**Released:** " + omdb_released + "\n**DVD:**" + omdb_dvd + "\n**Runtime:** " + omdb_runtime + "\n**Genre:** " + omdb_genre + "\n**Director:** " + omdb_director + "\n**Writer:** " + omdb_writer + "\n**Actor:** " + omdb_actor + "\n**Plot:** " + omdb_plot + "\n**Language:** " + omdb_language + "\n**Country:** " + omdb_country + "\n**Awards:** " + omdb_awards + "\n**Production:** " + omdb_production + "\n**Box Office:** " + omdb_boxoffice + "\n**Type:** " + omdb_type +"\n**IMDB ID:** " + imdb_id + "\n**IMDB ID 2**: " + omdb_id + "\n**Website:** " + omdb_website)
 
         except KeyError:
             yield from client.send_message(message.channel, "Pas d'information pour:** " + params[1] + "**")
