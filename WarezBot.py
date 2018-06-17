@@ -212,12 +212,14 @@ def on_message(message):
         data=r.json()
         
         try:
+
             imdb_id = data['releases'][0]['imdb']
             imdb_title = data['releases'][0]['title']
             imdb_title_omdb = imdb_title.replace(" ", "+")
             
             r2=requests.get(url='http://www.omdbapi.com/?t=' + imdb_title_omdb + '&apikey=5e539b')
             data2=r2.json()
+
             omdb_released = data2['Released']
             omdb_runtime = data2['Runtime']
             omdb_genre = data2['Genre']
@@ -249,7 +251,39 @@ def on_message(message):
             yield from client.send_message(message.channel, "**Link:** " + imdb_link + "\n**Title:** " + imdb_title + "\n**IMDB Rating:** " + omdb_rating + "/10" + "\n**IMDB Votes:** " + omdb_votes + "\n**Released:** " + omdb_released + "\n**DVD:**" + omdb_dvd + "\n**Runtime:** " + omdb_runtime + "\n**Genre:** " + omdb_genre + "\n**Director:** " + omdb_director + "\n**Writer:** " + omdb_writer + "\n**Actor:** " + omdb_actor + "\n**Plot:** " + omdb_plot + "\n**Language:** " + omdb_language + "\n**Country:** " + omdb_country + "\n**Awards:** " + omdb_awards + "\n**Production:** " + omdb_production + "\n**Box Office:** " + omdb_boxoffice + "\n**Type:** " + omdb_type +"\n**IMDB ID:** " + imdb_id + "\n**IMDB ID 2**: " + omdb_id + "\n**Website:** " + omdb_website + "\n\n**-------------------------------------------RATING-------------------------------------------**\n\n" + "**" + imd_src + "**: " + imd_value + "\n**" + rotten_src + "**: " + rotten_value + "\n**" + meta_src + "**: " + meta_value )
 
         except KeyError:
+
             yield from client.send_message(message.channel, "Pas d'information pour:** " + params[1] + "**")
 
+    if command == "!releases":
+        
+        yield from client.send_message(message.channel, "Retrieve information from PreDB Databases ... ")
+        
+        title_movie = params
+        params.pop(0)
+
+        for i in params:
+            releases = ".".join(params)
+        
+        try:
+            r=requests.get(url='https://www.srrdb.com/api/search/' + releases + '/order:date-desc/skip:5')
+            data=r.json()
+
+            if not data['results']:
+
+                yield from client.send_message(message.channel, "**" + releases +"** "+ "n'a pas encore de releases scènes ou vérifiez l'orthographe !")
+
+            else:
+                yield from client.send_message(message.channel, "**Last 5 releases for " + releases +": **\n ")
+                for i in data['results']:
+
+                    release = i['release']
+                    yield from client.send_message(message.channel, "```" + release + "```")
+
+
+
+        except KeyError:
+
+
+            yield from client.send_message(message.channel, "Pas d'information pour:** " + releases + "**")
 
 client.run(token)
