@@ -14,7 +14,7 @@ A python based discord bot, to make it easier to get or send info to/from Layer1
 ## Features
 ### Layer13
 
-* Various details about pre or false if not found
+* Various details about pre
 * List of files available for a given release
 * Get nfo files (soon: sfv/m3u/jpg)
 * Get file size and number of a specific release
