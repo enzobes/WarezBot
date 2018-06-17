@@ -5,6 +5,7 @@ import requests
 import datetime
 import sys
 import argparse
+import string
 
 
 ap = argparse.ArgumentParser()
@@ -213,10 +214,31 @@ def on_message(message):
         try:
             imdb_id = data['releases'][0]['imdb']
             imdb_title = data['releases'][0]['title']
-            imdb_rating = data['releases'][0]['rating']
-            imdb_votes = data['releases'][0]['votes']
+            imdb_title_omdb = imdb_title.replace(" ", "+")
+            
+            r2=requests.get(url='http://www.omdbapi.com/?t=' + imdb_title_omdb + '&apikey=5e539b')
+            data2=r2.json()
+            omdb_released = data2['Released']
+            omdb_runtime = data2['Runtime']
+            omdb_genre = data2['Genre']
+            omdb_director = data2['Director']
+            omdb_writer = data2['Writer']
+            omdb_actor = data2['Actors']
+            omdb_plot = data2['Plot']
+            omdb_language = data2['Language']
+            omdb_country = data2['Country']
+            omdb_rating = data2['imdbRating']
+            omdb_votes = data2['imdbVotes']
+            omdb_dvd = data2['DVD']
+            omdb_production = data2['Production']
+            omdb_boxoffice = data2['BoxOffice']
+            omdb_type = data2['Type']
+            omdb_website = data2['Website']
+            omdb_poster = data2['Poster']
+            omdb_awards = data2['Awards']
 
-            yield from client.send_message(message.channel,"**IMDB ID:**" + imdb_id + "\n**Title: **" + imdb_title + "\n**Rating: **" + imdb_rating + "\n**Votes: **" + imdb_votes)
+            yield from client.send_message(message.channel, "**IMDB ID:** " + imdb_id + "\n**Title:** " + imdb_title + "\n**IMDB Rating:** " + omdb_rating + "/10" + "\n**IMDB Votes:** " + omdb_votes + "\n**Released:** " + omdb_released + "\n**DVD:**" + omdb_dvd + "\n**Runtime:** " + omdb_runtime + "\n**Genre:** " + omdb_genre + "\n**Director:** " + omdb_director + "\n**Writer:** " + omdb_writer + "\n**Actor:** " + omdb_actor + "\n**Plot:** " + omdb_plot + "\n**Language:** " + omdb_language + "\n**Country:**" + omdb_country + "\n**Awards:** " + omdb_awards + "\n**Production:** " + omdb_production + "\n**Box Office:** " + omdb_boxoffice + "\n**Type:** " + omdb_type + "\n**Website:** " + omdb_website + "\n**Poster:** " + omdb_poster)
+
         except KeyError:
             yield from client.send_message(message.channel, "Pas d'information pour:** " + params[1] + "**")
 
