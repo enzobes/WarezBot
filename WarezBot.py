@@ -248,7 +248,8 @@ def on_message(message):
 
             imdb_link = 'https://www.imdb.com/title/' + omdb_id + "/"
 
-            yield from client.send_message(message.channel, "**Link:** " + imdb_link + "\n**Title:** " + imdb_title + "\n**IMDB Rating:** " + omdb_rating + "/10" + "\n**IMDB Votes:** " + omdb_votes + "\n**Released:** " + omdb_released + "\n**DVD:**" + omdb_dvd + "\n**Runtime:** " + omdb_runtime + "\n**Genre:** " + omdb_genre + "\n**Director:** " + omdb_director + "\n**Writer:** " + omdb_writer + "\n**Actor:** " + omdb_actor + "\n**Plot:** " + omdb_plot + "\n**Language:** " + omdb_language + "\n**Country:** " + omdb_country + "\n**Awards:** " + omdb_awards + "\n**Production:** " + omdb_production + "\n**Box Office:** " + omdb_boxoffice + "\n**Type:** " + omdb_type +"\n**IMDB ID:** " + imdb_id + "\n**IMDB ID 2**: " + omdb_id + "\n**Website:** " + omdb_website + "\n\n**-------------------------------------------RATING-------------------------------------------**\n\n" + "**" + imd_src + "**: " + imd_value + "\n**" + rotten_src + "**: " + rotten_value + "\n**" + meta_src + "**: " + meta_value )
+            yield from client.send_message(message.channel, "**Link:** " + imdb_link + "\n**Title:** " + imdb_title + "\n**IMDB Rating:** " + omdb_rating + "/10" + "\n**IMDB Votes:** " + omdb_votes + "\n**Released:** " + omdb_released + "\n**DVD:**" + omdb_dvd + "\n**Runtime:** " + omdb_runtime + "\n**Genre:** " + omdb_genre + "\n**Director:** " + omdb_director + "\n**Writer:** " + omdb_writer + "\n**Actor:** " + omdb_actor + "\n**Plot:** " + omdb_plot + "\n**Language:** " + omdb_language + "\n**Country:** " + omdb_country + "\n**Awards:** " + omdb_awards + "\n**Production:** " + omdb_production + "\n**Box Office:** " + omdb_boxoffice + "\n**Type:** " + omdb_type +"\n**IMDB ID:** " + imdb_id + "\n**IMDB ID 2**: " + omdb_id + "\n**Website:** " + omdb_website + "\n\n**-------------------------------------------RATING-------------------------------------------**\n\n" + "**" + imd_src + "**: " + imd_value + "\n**" + rotten_src + "**: " + rotten_value + "\n**" + meta_src + "**: " + meta_value)
+
 
         except KeyError:
 
@@ -279,11 +280,16 @@ def on_message(message):
                     release = i['release']
                     yield from client.send_message(message.channel, "```" + release + "```")
 
-
-
         except KeyError:
 
-
             yield from client.send_message(message.channel, "Pas d'information pour:** " + releases + "**")
+    
+
+    if command == "!help":
+        
+        yield from client.send_message(message.channel, "```Markdown\n[1]: !pre [RELEASE TITLE]\n# Return pre information about release\n[2]:!file [RELEASE TITLE]\n# Return Layer13 link, nfo, sfv\n[3]: !nfo [RELEASE TITLE]\n# Search for nfo and if existe, return download link\n[4]: !size [RELEASE TITLE]\n# Return number of file and size of the release\n[5]: !group [GROUP/TAG NAME]\n# Return last 5 releases of this group/tag\n[6]: !imdb [RELEASE TITLE]\n# Retrieve information from IMDb\n[7]: !releases [TV/MOVIE TITLE]\n# Return last 5 release available for this Tv/Movie title```")
+        yield from client.send_message(message.channel, "```Markdown\nYou can have more informations on the official [Github repo](https://github.com/enzobes/WarezBot)```")
+        yield from client.send_message(message.channel, "https://github.com/enzobes/WarezBot")
+        
 
 client.run(token)

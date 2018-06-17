@@ -45,7 +45,7 @@ A python based discord bot, to make it easier to get or send info to/from Layer1
 
 `!imdb {RELEASE TITLE}` : retrieve information from imdb
 
-`!releases {RELEASE TITLE}` : return last 5 release for this TV/Movie title
+`!releases {TV/MOVIE TITLE}` : return last 5 release for this TV/Movie title
 
 
 ## Preview
