@@ -16,11 +16,14 @@ A python based discord bot, to make it easier to get or send info to/from Layer1
 
 * Various details about pre or false if not found
 * List of files available for a given release
-* Get nfo files from db of Layer13 (soon: srrbd + sfv/m3u/jpg)
+* Get nfo files (soon: sfv/m3u/jpg)
 * Get file size and number of a specific release
 
 ### Srrdb
-Soon ...
+* Get nfo files (soon: sfv/m3u/jpg)
+* Search by GROUP/TEAM Tag
+* Get IMDB information and ranking for a release
+* Get last 5 releases for a tv/movie
 
 ## Installation and Support
 
@@ -41,6 +44,8 @@ Soon ...
 `!group {GROUP NAME}` : return last 5 releases of this group 
 
 `!imdb {RELEASE TITLE}` : retrieve information from imdb
+
+`!releases {RELEASE TITLE}` : return last 5 release for this TV/Movie title
 
 
 ## Preview
