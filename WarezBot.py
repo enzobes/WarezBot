@@ -86,7 +86,7 @@ def on_message(message):
 
     if command == "!commandtest": #Copiez ce code pour créer une commande
         yield from client.send_message(message.channel, "Texte à envoyer.")
-        yield from client.change_presence(game=discord.Game(name='Dev by SplitX26'))
+        yield from client.change_presence(game=discord.Game(name='Dev by Enzobes'))
     if "il est cool " + user_bot.lower() in rep.lower(): #Ici, le bot peut répondre a des phrases, par exemple, en disant "Il est cool NextBot", le bot répondra "Merci du compliment, vous aussi vous êtes cool !".
         yield from client.send_message(message.channel, "Merci du compliment, vous aussi vous êtes cool ! :)")
 #Fin des commandes
