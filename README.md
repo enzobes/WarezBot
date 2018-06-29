@@ -5,6 +5,8 @@
 [![Docker Stars](https://img.shields.io/docker/stars/enzobes/warezbot.svg)](https://hub.docker.com/r/enzobes/warezbot) 
 [![Docker Automated build](https://img.shields.io/docker/automated/enzobes/warezbot.svg)](https://hub.docker.com/r/enzobes/warezbot)
 
+### DEPRECATED ! Layer13 Website is down
+Update soon ...
 
 A python based discord bot, to make it easier to get or send info to/from Layer13.net and Srrdb (soon) with it you can get pretime and other release info or the files for a specific release 
 
