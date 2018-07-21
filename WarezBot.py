@@ -9,11 +9,10 @@ import string
 
 
 ap = argparse.ArgumentParser()
-ap.add_argument("-k", "--key", required=True, help="Layer13 API KEY")
 ap.add_argument("-b", "--bot", required=True, help="Discord Bot Token")
 args = vars(ap.parse_args())
 token = args["bot"]
-apikey_layer13 = args["key"]
+
 
 trust = ["Utilisateur 1", "Utilisateur 2"] #Trusted users for restricted commands 
 trust_roles = [""]
@@ -92,101 +91,35 @@ def on_message(message):
 #Fin des commandes
 #COMMANDES PERSO
     if command == "!pre":
-        r=requests.get(url='http://api.layer13.net/v1/?getpre='+ params[1] +'&key='+ apikey_layer13)
-        data=r.json()
-        try:
-            date = data['pretime']
-        except KeyError:
-            list_nfo = params[1].split("-")
+        r=requests.get(url='https://predb.org/api/enzobes/q2AQ74sPd9kGWQ86/pre/'+ params[1])
+        data = r.text
+            
+        if data == "":
             yield from client.send_message(message.channel, "**"+list_nfo[1]+"**" + " n'est pas une team scène !")
-            return
         
-        read_date = datetime.datetime.fromtimestamp(int(date)).strftime('%d-%m-%Y %H:%M:%S')
-        yield from client.send_message(message.channel, "**ID:** " + data['id'] + "\n**Section:** "+ data['section']+ "\n**RlsName:** " + data['rlsname'] + "\n**Pretime:** " + data['pretime'] + "\n**Predate:**: " + read_date)
-        
-    if command == "!file":
+        else:
+            yield from client.send_message(message.channel, "**Pre:** " + data)
+           
 
-        
-        r=requests.get(url='http://api.layer13.net/v1/?listfiles='+ params[1] +'&key='+ apikey_layer13)
-        r2=requests.get(url='http://api.layer13.net/v1/?getpre='+ params[1] +'&key='+ apikey_layer13)
-
-        data=r.json()
-        data2=r2.json()
-        try:
-            url = 'https://layer13.net/rls?id='+ data2['id']
-        except KeyError:
-            list_nfo = params[1].split("-")
-            yield from client.send_message(message.channel, "**"+list_nfo[1]+"**" + " n'est pas une team scène !")
-            return
-        
-        try:
-            parsed_nfo = data['0']['filename']
-            parsed_sfv = data['1']['filename']
-            if parsed_nfo and parsed_sfv :
-                yield from client.send_message(message.channel, "**Lien Layer13:** " + url +"\n**NFO:** " + parsed_nfo + "\n**SFV:** " + parsed_sfv)
-        except KeyError:
-            try:
-                parsed_nfo = data['0']['filename']
-                print(parsed_nfo)
-                if parsed_nfo:
-                    yield from client.send_message(message.channel, "**Lien Layer13:** " + url +"\n**NFO:** " + parsed_nfo)
-                        
-            except KeyError:
-                yield from client.send_message(message.channel, "Pas de fichier sur Layer13 pour:** " + params[1] + "**")
-    
     if command == "!nfo":
-        r=requests.get(url='http://api.layer13.net/v1/?listfiles='+ params[1] +'&key='+ apikey_layer13)
-        r2=requests.get(url='http://api.layer13.net/v1/?getpre='+ params[1] +'&key='+ apikey_layer13)
-
-        data=r.json()
-        data2=r2.json()
 
         try:
-            yield from client.send_message(message.channel,"Recherche sur Layer13 ...")   
-            parsed_nfo = data['0']['filename']
-            download='http://api.layer13.net/v1/?getfile=' + data2['id'] + "&filename=" + parsed_nfo + "&key=" + apikey_layer13
+             yield from client.send_message(message.channel,"Recherche sur Srrdb ...")   
+             r3=requests.get(url='https://www.srrdb.com/api/nfo/' +params[1])
+             data3=r3.json()
+             srrdb_nfo = data3['nfo']
+             srrdb_nfo_link = data3['nfolink']
+             print(srrdb_nfo_link)
+             if data3['nfo']:
+                 yield from client.send_message(message.channel,"**NFO Srrdb: **" + str(srrdb_nfo)) 
+                 yield from client.send_message(message.channel,"**Download Srrdb: **" + str(srrdb_nfo_link)) 
+                 return  
 
-
-
-        except KeyError:
-
-            yield from client.send_message(message.channel, "Pas de nfo sur Layer13 pour :" +"**" + params[1] + "**")
-            try:
-                yield from client.send_message(message.channel,"Recherche sur Srrdb ...")   
-                r3=requests.get(url='https://www.srrdb.com/api/nfo/' +params[1])
-                data3=r3.json()
-                srrdb_nfo = data3['nfo']
-                srrdb_nfo_link = data3['nfolink']
-                print(srrdb_nfo_link)
-                if data3['nfo']:
-                    yield from client.send_message(message.channel,"**NFO Srrdb: **" + str(srrdb_nfo)) 
-                    yield from client.send_message(message.channel,"**Download Srrdb: **" + str(srrdb_nfo_link)) 
-                    return  
-
-                if len(srrdb_nfo) > 0:
-                    yield from client.send_message(message.channel,"Pas de nfo sur Srrdb pour:" + "**" + params[1] + "**")
-                    return   
-            except KeyError:
-                yield from client.send_message(message.channel, "Pas de NFO pour:** " + params[1] + "**")
-        try:    
-            parsedValue = data['0']['filename']
-            yield from client.send_message(message.channel, "NFO trouvé !" + "\n**Files:** " + parsedValue + "\n**Download Layer13**: " + download)
-
+             if len(srrdb_nfo) > 0:
+                 yield from client.send_message(message.channel,"Pas de nfo sur Srrdb pour:" + "**" + params[1] + "**")
+                 return   
         except KeyError:
             yield from client.send_message(message.channel, "Pas de NFO pour:** " + params[1] + "**")
-
-    if command == "!size":
-        r=requests.get(url='http://api.layer13.net/v1/?getpre='+ params[1] +'&key='+ apikey_layer13)
-        data=r.json()
-        try:
-            r2=requests.get(url='http://api.layer13.net/v1/?getfilessize='+ data['id'] +'&key='+ apikey_layer13)
-        except KeyError:
-            list_nfo = params[1].split("-")
-            yield from client.send_message(message.channel, "**"+list_nfo[1]+"**" + " n'est pas une team scène !")
-            return
-        
-        data2=r2.json()
-        yield from client.send_message(message.channel, "**Files:** " + data2['files'] + "\n**Size:** "+ data2['size']+ " MB")
 
     if command == "!group":
         yield from client.send_message(message.channel, "I'm searching ... ")
@@ -216,7 +149,7 @@ def on_message(message):
             imdb_id = data['releases'][0]['imdb']
             imdb_title = data['releases'][0]['title']
             imdb_title_omdb = imdb_title.replace(" ", "+")
-            
+            print(imdb_title_omdb)
             r2=requests.get(url='http://www.omdbapi.com/?t=' + imdb_title_omdb + '&apikey=5e539b')
             data2=r2.json()
 
