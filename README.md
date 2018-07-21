@@ -23,7 +23,7 @@ A python based discord bot, to make it easier to get or send info to/from Layer1
 * Get IMDB information and ranking for a release
 * Get last 5 releases for a tv/movie
 
-~~### Layer13~~
+~~Layer13~~
 
 * ~~Various details about pre~~
 * ~~List of files available for a given release~~
