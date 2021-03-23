@@ -14,6 +14,9 @@ A python based discord bot, to make it easier to get or send info to/from Srrdb 
 
 ## Features
 
+### PreDB.org
+* Get Pre time 
+
 ### Srrdb
 * Get nfo files (soon: sfv/m3u/jpg)
 * Search by GROUP/TEAM Tag
