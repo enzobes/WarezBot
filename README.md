@@ -1,6 +1,5 @@
 # WarezBot [![GitHub Release](https://img.shields.io/github/release/enzobes/WarezBot.svg)](https://github.com/enzobes/WarezBot/releases) [![Build Status](https://travis-ci.org/enzobes/WarezBot.svg?branch=master)](https://travis-ci.org/enzobes/WarezBot) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/enzobes/WarezBot/issues)
 
-[![Docker Build Status](https://img.shields.io/docker/build/enzobes/warezbot.svg)](https://hub.docker.com/r/enzobes/warezbot)
 [![Docker pulls](https://img.shields.io/docker/pulls/enzobes/warezbot.svg)](https://hub.docker.com/r/enzobes/warezbot/)
 [![Docker Stars](https://img.shields.io/docker/stars/enzobes/warezbot.svg)](https://hub.docker.com/r/enzobes/warezbot) 
 [![Docker Automated build](https://img.shields.io/docker/automated/enzobes/warezbot.svg)](https://hub.docker.com/r/enzobes/warezbot)
