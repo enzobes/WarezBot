@@ -90,6 +90,7 @@ def on_message(message):
 #Fin des commandes
 #COMMANDES PERSO
     if command == "!pre":
+        #You can use my key or if you make a large amount of request you can ask for a key here : predb.org/about
         r=requests.get(url='https://predb.org/api/enzobes/q2AQ74sPd9kGWQ86/pre/'+ params[1])
         data = r.text
         if data == "":
@@ -144,6 +145,7 @@ def on_message(message):
             imdb_title = data['releases'][0]['title']
             imdb_title_omdb = imdb_title.replace(" ", "+")
             print(imdb_title_omdb)
+            #You can use your own omdbapi.com key
             r2=requests.get(url='http://www.omdbapi.com/?i=tt' + imdb_id + '&apikey=5e539b')
             data2=r2.json()
 
@@ -166,8 +168,7 @@ def on_message(message):
             omdb_website = data2['Website']
             omdb_awards = data2['Awards']
             omdb_id = data2['imdbID']
-            imdb_link = 'https://imdb.com/title/' + omdb_id + "/" 
-             
+            imdb_link = 'https://imdb.com/title/' + omdb_id + "/"
             #imd_src = data2['Ratings'][0]['Source']
             #imd_value = data2['Ratings'][0]['Value']
             #rotten_src = data2['Ratings'][1]['Source']
