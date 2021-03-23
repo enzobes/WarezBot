@@ -7,15 +7,12 @@
 
 Update soon ...
 
-A python based discord bot, to make it easier to get or send info to/from Layer13.net and Srrdb (soon) with it you can get pretime and other release info or the files for a specific release 
+A python based discord bot, to make it easier to get or send info to/from Srrdb with it you can get pretime and other release info or the files for a specific release 
 
 
 
 
 ## Features
-
-### PreDB.org
-* Get Pre time 
 
 ### Srrdb
 * Get nfo files (soon: sfv/m3u/jpg)
