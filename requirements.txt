@@ -1,5 +1,5 @@
-requests>=2.18.4
-datetime>=4.2
+requests
+datetime
 discord.py
 argparse
 asyncio

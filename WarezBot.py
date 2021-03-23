@@ -36,14 +36,14 @@ def on_message(message):
     user_bot_client = client.user.name
     user_bot = user_bot_client.split("#")[0]
     role_trusted = False
-    if type(message.server) is discord.server.Server:
-        server_msg = str(message.channel.server)
+    if type(message.guild) is discord.guild.Guild:
+        server_msg = str(message.channel.guild)
         chan_msg = str(message.channel.name)
         for role_name in trust_roles:
             if ":" in role_name and role_name.split(":")[0] == server_msg:
                 rank_role = discord.utils.get(message.server.roles, name = ":".join(role_name.split(":")[1:]))
             else:
-                rank_role = discord.utils.get(message.server.roles, name = role_name)
+                rank_role = discord.utils.get(message.guild.roles, name = role_name)
             if type(rank_role) is discord.role.Role and rank_role.id in [r.id for r in message.author.roles]:
                 role_trusted = True
         pm = False
@@ -84,75 +84,70 @@ def on_message(message):
 #Début des commandes
 
     if command == "!commandtest": #Copiez ce code pour créer une commande
-        yield from client.send_message(message.channel, "Texte à envoyer.")
-        yield from client.change_presence(game=discord.Game(name='Dev by Enzobes'))
-    if "il est cool " + user_bot.lower() in rep.lower(): #Ici, le bot peut répondre a des phrases, par exemple, en disant "Il est cool NextBot", le bot répondra "Merci du compliment, vous aussi vous êtes cool !".
-        yield from client.send_message(message.channel, "Merci du compliment, vous aussi vous êtes cool ! :)")
+        yield from message.channel.send("Texte à envoyer.")
+        game = discord.Game("Dev by Enzobes")
+        yield from client.change_presence(status=discord.Status.online, activity=game)
 #Fin des commandes
 #COMMANDES PERSO
     if command == "!pre":
         r=requests.get(url='https://predb.org/api/enzobes/q2AQ74sPd9kGWQ86/pre/'+ params[1])
         data = r.text
-            
         if data == "":
-            yield from client.send_message(message.channel, "**"+list_nfo[1]+"**" + " n'est pas une team scène !")
-        
+            yield from message.channel.send("**"+list_nfo[1]+"**" + " n'est pas une team scène !")
         else:
-            yield from client.send_message(message.channel, "**Pre:** " + data)
-           
+            yield from message.channel.send("**Pre:** " + data)
 
     if command == "!nfo":
 
         try:
-             yield from client.send_message(message.channel,"Recherche sur Srrdb ...")   
+             yield from message.channel.send("Searching on Srrdb ...")
              r3=requests.get(url='https://www.srrdb.com/api/nfo/' +params[1])
              data3=r3.json()
              srrdb_nfo = data3['nfo']
              srrdb_nfo_link = data3['nfolink']
              print(srrdb_nfo_link)
              if data3['nfo']:
-                 yield from client.send_message(message.channel,"**NFO Srrdb: **" + str(srrdb_nfo)) 
-                 yield from client.send_message(message.channel,"**Download Srrdb: **" + str(srrdb_nfo_link)) 
-                 return  
+                 yield from message.channel.send("**Nfo Srrdb: **" + str(srrdb_nfo))
+                 yield from message.channel.send("**Download Srrdb: **" + str(srrdb_nfo_link))
+                 return
 
              if len(srrdb_nfo) > 0:
-                 yield from client.send_message(message.channel,"Pas de nfo sur Srrdb pour:" + "**" + params[1] + "**")
-                 return   
+                 yield from message.channel.send("No nfo on Srrdb for:" + "**" + params[1] + "**")
+                 return
         except KeyError:
-            yield from client.send_message(message.channel, "Pas de NFO pour:** " + params[1] + "**")
+            yield from message.channel.send("No nfo found:** " + params[1] + "**")
 
     if command == "!group":
-        yield from client.send_message(message.channel, "I'm searching ... ")
+        yield from message.channel.send("I'm searching ... ")
         r=requests.get(url='https://www.srrdb.com/api/search/group:' +params[1] + '/order:date-desc/skip:5')
         data=r.json()
 
         if not data['results']:
 
-            yield from client.send_message(message.channel, "**" + params[1] +"** "+ "n'est pas une team scène !")
+            yield from message.channel.send("**" + params[1] +"** "+ "is not a scene team !")
 
         else:
-            yield from client.send_message(message.channel, "**Last 5 releases of " + params[1] +": **\n ")
+            yield from message.channel.send("**Last 5 releases of " + params[1] +": **\n ")
             for i in data['results']:
 
                 release = i['release']
-                yield from client.send_message(message.channel, "```" + release + "```")
+                yield from message.channel.send("```" + release + "```")
 #        no_team = params[1]
 #        yield from client.send_message(message.channel, "**"+ no_team +"**" + " n'est pas une team scène !")
-    
     if command == "!imdb":
-        yield from client.send_message(message.channel, "Retrieve information from IMDB ... ")
+        yield from message.channel.send("Retrieve information from IMDB ... ")
         r=requests.get(url='https://www.srrdb.com/api/imdb/' + params[1])
         data=r.json()
-        
         try:
 
             imdb_id = data['releases'][0]['imdb']
             imdb_title = data['releases'][0]['title']
             imdb_title_omdb = imdb_title.replace(" ", "+")
             print(imdb_title_omdb)
-            r2=requests.get(url='http://www.omdbapi.com/?t=' + imdb_title_omdb + '&apikey=5e539b')
+            r2=requests.get(url='http://www.omdbapi.com/?i=tt' + imdb_id + '&apikey=5e539b')
             data2=r2.json()
 
+            print(data2)
             omdb_released = data2['Released']
             omdb_runtime = data2['Runtime']
             omdb_genre = data2['Genre']
@@ -171,58 +166,55 @@ def on_message(message):
             omdb_website = data2['Website']
             omdb_awards = data2['Awards']
             omdb_id = data2['imdbID']
+            imdb_link = 'https://imdb.com/title/' + omdb_id + "/" 
+             
+            #imd_src = data2['Ratings'][0]['Source']
+            #imd_value = data2['Ratings'][0]['Value']
+            #rotten_src = data2['Ratings'][1]['Source']
+            #rotten_value = data2['Ratings'][1]['Value']
+            #meta_src = data2['Ratings'][2]['Source']
+            #meta_value = data2['Ratings'][2]['Value']
 
-            imd_src = data2['Ratings'][0]['Source']
-            imd_value = data2['Ratings'][0]['Value']
-            rotten_src = data2['Ratings'][1]['Source']
-            rotten_value = data2['Ratings'][1]['Value']
-            meta_src = data2['Ratings'][2]['Source']
-            meta_value = data2['Ratings'][2]['Value']
+            #imdb_link = 'https://www.imdb.com/title/' + omdb_id + "/"
 
-            imdb_link = 'https://www.imdb.com/title/' + omdb_id + "/"
-
-            yield from client.send_message(message.channel, "**Link:** " + imdb_link + "\n**Title:** " + imdb_title + "\n**IMDB Rating:** " + omdb_rating + "/10" + "\n**IMDB Votes:** " + omdb_votes + "\n**Released:** " + omdb_released + "\n**DVD:** " + omdb_dvd + "\n**Runtime:** " + omdb_runtime + "\n**Genre:** " + omdb_genre + "\n**Director:** " + omdb_director + "\n**Writer:** " + omdb_writer + "\n**Actor:** " + omdb_actor + "\n**Plot:** " + omdb_plot + "\n**Language:** " + omdb_language + "\n**Country:** " + omdb_country + "\n**Awards:** " + omdb_awards + "\n**Production:** " + omdb_production + "\n**Box Office:** " + omdb_boxoffice + "\n**Type:** " + omdb_type +"\n**IMDB ID:** " + imdb_id + "\n**IMDB ID 2**: " + omdb_id + "\n**Website:** " + omdb_website + "\n\n**-------------------------------------------RATING-------------------------------------------**\n\n" + "**" + imd_src + "**: " + imd_value + "\n**" + rotten_src + "**: " + rotten_value + "\n**" + meta_src + "**: " + meta_value)
+            yield from message.channel.send("**Link:** " + imdb_link + "\n**Title:** " + imdb_title + "\n**IMDB Rating:** " + omdb_rating + "/10" + "\n**IMDB Votes:** " + omdb_votes + "\n**Released:** " + omdb_released + "\n**DVD:** " + omdb_dvd + "\n**Runtime:** " + omdb_runtime + "\n**Genre:** " + omdb_genre + "\n**Director:** " + omdb_director + "\n**Writer:** " + omdb_writer + "\n**Actor:** " + omdb_actor + "\n**Plot:** " + omdb_plot + "\n**Language:** " + omdb_language + "\n**Country:** " + omdb_country + "\n**Awards:** " + omdb_awards + "\n**Production:** " + omdb_production + "\n**Box Office:** " + omdb_boxoffice + "\n**Type:** " + omdb_type +"\n**IMDB ID:** " + imdb_id + "\n**IMDB ID 2**: " + omdb_id + "\n**Website:** " + omdb_website)
 
 
         except KeyError:
 
-            yield from client.send_message(message.channel, "Pas d'information pour:** " + params[1] + "**")
+            yield from message.channel.send("No information for:** " + params[1] + "**")
 
     if command == "!releases":
-        
-        yield from client.send_message(message.channel, "Retrieve information from PreDB Databases ... ")
-        
+
+        yield from message.channel.send("Retrieve information from PreDB Databases ... ")
+
         title_movie = params
         params.pop(0)
 
         for i in params:
             releases = ".".join(params)
-        
         try:
             r=requests.get(url='https://www.srrdb.com/api/search/' + releases + '/order:date-desc/skip:5')
             data=r.json()
 
             if not data['results']:
 
-                yield from client.send_message(message.channel, "**" + releases +"** "+ "n'a pas encore de releases scènes ou vérifiez l'orthographe !")
+                yield from message.channel.send("**" + releases +"** "+ "have no scene releases or check writing! ")
 
             else:
-                yield from client.send_message(message.channel, "**Last 5 releases for " + releases +": **\n ")
+                yield from message.channel.send("**Last 5 releases for " + releases +": **\n ")
                 for i in data['results']:
 
                     release = i['release']
-                    yield from client.send_message(message.channel, "```" + release + "```")
+                    yield from message.channel.send("```" + release + "```")
 
         except KeyError:
 
-            yield from client.send_message(message.channel, "Pas d'information pour:** " + releases + "**")
-    
+            yield from message.channel.send("No information for:** " + releases + "**")
 
     if command == "!help":
-        
-        yield from client.send_message(message.channel, "```Markdown\n[1]: !pre [RELEASE TITLE]\n# Return pre information about release\n[2]:!file [RELEASE TITLE]\n# Return Layer13 link, nfo, sfv\n[3]: !nfo [RELEASE TITLE]\n# Search for nfo and if existe, return download link\n[4]: !size [RELEASE TITLE]\n# Return number of file and size of the release\n[5]: !group [GROUP/TAG NAME]\n# Return last 5 releases of this group/tag\n[6]: !imdb [RELEASE TITLE]\n# Retrieve information from IMDb\n[7]: !releases [TV/MOVIE TITLE]\n# Return last 5 release available for this Tv/Movie title```")
-        yield from client.send_message(message.channel, "```Markdown\nYou can have more informations on the official [Github repo](https://github.com/enzobes/WarezBot)```")
-        yield from client.send_message(message.channel, "https://github.com/enzobes/WarezBot")
-        
+        yield from message.channel.send("```Markdown\n[1]: !pre [RELEASE TITLE]\n# Return pre information about release\n[2]:!file [RELEASE TITLE]\n# Return Layer13 link, nfo, sfv\n[3]: !nfo [RELEASE TITLE]\n# Search for nfo and if existe, return download link\n[4]: !size [RELEASE TITLE]\n# Return number of file and size of the release\n[5]: !group [GROUP/TAG NAME]\n# Return last 5 releases of this group/tag\n[6]: !imdb [RELEASE TITLE]\n# Retrieve information from IMDb\n[7]: !releases [TV/MOVIE TITLE]\n# Return last 5 release available for this Tv/Movie title```")
+        yield from message.channel.send("```Markdown\nYou can have more informations on the official [Github repo](https://github.com/enzobes/WarezBot)```")
+        yield from message.channel.send("https://github.com/enzobes/WarezBot")
 
 client.run(token)
