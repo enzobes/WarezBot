@@ -1,4 +1,4 @@
-FROM python:3.4-slim-jessie
+FROM python:3.7-slim-jessie
 
 ADD . /app
 
