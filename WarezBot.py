@@ -17,7 +17,7 @@ token = args["bot"]
 trust = ["Utilisateur 1", "Utilisateur 2"] #Trusted users for restricted commands 
 trust_roles = [""]
 ranks = False
-client = discord.Client()
+client = discord.Client(intents=discord.Intents.default())
 ver = "0.1"
 lang = "fr"
 
